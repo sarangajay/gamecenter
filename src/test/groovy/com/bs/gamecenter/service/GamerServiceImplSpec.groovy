@@ -4,7 +4,9 @@ import com.bs.gamecenter.exception.DataNotFoundException
 import com.bs.gamecenter.exception.InvalidDataException
 import com.bs.gamecenter.model.GameDTO
 import com.bs.gamecenter.model.GameInput
+import com.bs.gamecenter.model.GamerCreditDTO
 import com.bs.gamecenter.model.GamerDTO
+import com.bs.gamecenter.model.GamerDataDTO
 import com.bs.gamecenter.model.GamerInput
 import com.bs.gamecenter.model.entity.Game
 import com.bs.gamecenter.model.entity.Gamer
@@ -224,6 +226,21 @@ class GamerServiceImplSpec extends Specification {
         where:
         gamerId | gameId | credit
         1L      | 1L     | 100
+    }
+
+    def "findGamersWithMaxCreditsForEachGameBaseOnLevel successfully"() {
+        given:
+        List<GamerCreditDTO> creditDTOList = Arrays.asList(
+                new GamerCreditDTO(1L, "John Doe", 5L, GameName.AMONGUS.name(), GameLevel.NOOB, 100)
+        )
+        1 * gamerGameRepository.findGamersWithMaxCreditsForEachGame() >> creditDTOList
+
+        when:
+        List<GamerCreditDTO> creditDTOS = gamerGameRepository.findGamersWithMaxCreditsForEachGame()
+
+        then:
+        noExceptionThrown()
+        assert creditDTOS.size() == 1
     }
 
     Gamer buildGamer() {
