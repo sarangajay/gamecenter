@@ -1,5 +1,6 @@
 package com.bs.gamecenter.service
 
+import com.bs.gamecenter.exception.DataNotFoundException
 import com.bs.gamecenter.exception.InvalidDataException
 import com.bs.gamecenter.model.GameDTO
 import com.bs.gamecenter.model.GameInput
@@ -160,6 +161,69 @@ class GamerServiceImplSpec extends Specification {
 
         then:
         thrown(InvalidDataException)
+    }
+
+    def "grantCreditToGamer should create a new GamerDTO with credit"() {
+        given:
+        def gamer = buildGamer()
+        def game = buildGame1()
+
+        when:
+        1 * gamerRepository.findById(_) >> Optional.of(gamer)
+
+        1 * gameRepository.findById(_) >> Optional.of(game)
+
+        1 * gamerGameRepository.findById(_) >> Optional.of(new GamerGame(id: new GamerGameId(gamerId: 1L, gameId: 1L), gamer: gamer, game: game, level: GameLevel.NOOB, credits: 0))
+
+        1 * gamerGameRepository.save(_)
+
+        1 * gamerGameRepository.findByIdGamerId(_) >> buildGamerGameList(gamer, buildGame1(), buildGame2(),
+                buildGame3(), buildGame4(), buildGame5())
+
+        1 * gameDataMapper.toGamerDTO(gamer, buildGamerGameList(gamer, buildGame1(), buildGame2(),
+                buildGame3(), buildGame4(), buildGame5())) >> guildGamerDTO()
+
+        def gamerDTO = gamerService.grantCreditToGamer(1L, 1L, 100)
+
+        then:
+        noExceptionThrown()
+        assert gamerDTO != null
+        assert gamerDTO.gamerId() == 1L
+        assert gamerDTO.name() == "Saranga"
+        assert gamerDTO.gender() == "Male"
+        assert gamerDTO.nickname() == "JD"
+        assert gamerDTO.geography() == "Kokkadal"
+    }
+
+    def "grantCreditToGamer failed with exception when gamer is not found"() {
+        given:
+        1 * gamerRepository.findById(_ as Long) >> Optional.ofNullable(null)
+
+        when:
+        gamerService.grantCreditToGamer(gamerId, gameId, 100)
+
+        then:
+        thrown(DataNotFoundException)
+
+        where:
+        gamerId | gameId | credit
+        1L      | 1L     | 100
+    }
+
+    def "grantCreditToGamer failed with exception when game is not found"() {
+        given:
+        1 * gamerRepository.findById(_ as Long) >> Optional.of(buildGamer())
+        1 * gameRepository.findById(_) >> Optional.ofNullable(null)
+
+        when:
+        gamerService.grantCreditToGamer(gamerId, gameId, 100)
+
+        then:
+        thrown(DataNotFoundException)
+
+        where:
+        gamerId | gameId | credit
+        1L      | 1L     | 100
     }
 
 

@@ -1,5 +1,6 @@
 package com.bs.gamecenter.service;
 
+import com.bs.gamecenter.exception.DataNotFoundException;
 import com.bs.gamecenter.exception.InvalidDataException;
 import com.bs.gamecenter.model.GameInput;
 import com.bs.gamecenter.model.GamerDTO;
@@ -61,6 +62,27 @@ public class GamerServiceImpl implements GamerService {
                     gamerGameRepository.save(gamerGame);
                 }
         );
+        List<GamerGame> gamerGameList = gamerGameRepository.findByIdGamerId(gamer.getGamerId());
+        return gameDataMapper.toGamerDTO(gamer, gamerGameList);
+    }
+
+    @Override
+    public GamerDTO grantCreditToGamer(Long gamerId, Long gameId, Integer credit) {
+
+        Gamer gamer = gamerRepository.findById(gamerId)
+                .orElseThrow(() -> new DataNotFoundException("Gamer not found for Id" + gamerId));
+
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new DataNotFoundException("Game is not found for Id" + gamerId));
+
+        final GamerGameId gamerGameIdKey = new GamerGameId(gamer.getGamerId(), game.getGameId());
+
+        final GamerGame gamerGame = gamerGameRepository.findById(gamerGameIdKey)
+                .orElseThrow(() -> new DataNotFoundException(String.format("Game %s is not played by the Gamer: %s.",
+                        game.getName(), gamer.getName())));
+        gamerGame.setCredits(credit);
+        gamerGameRepository.save(gamerGame);
+
         List<GamerGame> gamerGameList = gamerGameRepository.findByIdGamerId(gamer.getGamerId());
         return gameDataMapper.toGamerDTO(gamer, gamerGameList);
     }

@@ -58,3 +58,158 @@ mutation {
         }
     }
 }
+
+#API to give credits to individual users
+# credit is added to the each game per user
+
+mutation {
+    grantCreditToGamer(gamerId: 1, gameId:1,creditAmount: 100) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 1, gameId:2,creditAmount: 200) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 1, gameId:3,creditAmount: 300) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 1, gameId:4,creditAmount: 400) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 1, gameId:5,creditAmount: 500) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+
+mutation {
+    grantCreditToGamer(gamerId: 2, gameId:1,creditAmount: 50) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 2, gameId:2,creditAmount: 300) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 2, gameId:3,creditAmount: 500) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+mutation {
+    grantCreditToGamer(gamerId: 2, gameId:4,creditAmount: 200) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+
+mutation {
+    grantCreditToGamer(gamerId: 2, gameId:5,creditAmount: 700) {
+        gamerId
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}

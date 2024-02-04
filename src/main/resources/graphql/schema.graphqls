@@ -28,7 +28,8 @@ input GameInput {
 }
 
 type Mutation {
-    enrollGamer(input: GamerInput!): GamerDTO!
+    enrollGamer(input: GamerInput!): GamerDTO!,
+    grantCreditToGamer(gamerId: ID!, gameId: ID!, creditAmount: Int!): GamerDTO!
 }
 
 type Query {
