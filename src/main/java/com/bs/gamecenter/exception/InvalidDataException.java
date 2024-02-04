@@ -1,4 +1,4 @@
-package com.bs.gamecenter.Exeption;
+package com.bs.gamecenter.exception;
 
 import lombok.ToString;
 

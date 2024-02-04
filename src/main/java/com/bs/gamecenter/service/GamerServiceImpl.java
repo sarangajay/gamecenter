@@ -1,6 +1,6 @@
 package com.bs.gamecenter.service;
 
-import com.bs.gamecenter.Exeption.InvalidDataException;
+import com.bs.gamecenter.exception.InvalidDataException;
 import com.bs.gamecenter.model.GameInput;
 import com.bs.gamecenter.model.GamerDTO;
 import com.bs.gamecenter.model.GamerInput;
