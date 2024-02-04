@@ -1,0 +1,36 @@
+type GamerDTO {
+    gamerId: ID!
+    name: String!
+    gender: String
+    nickname: String!
+    geography: String!
+    games: [GameDTO]!
+}
+
+type GameDTO {
+    gameId: ID!
+    name: String!
+    level: String!
+    credits: Int
+}
+
+input GamerInput {
+    name: String!
+    gender: String
+    nickname: String!
+    geography: String!
+    games: [GameInput]!
+}
+
+input GameInput {
+    name: String!
+    level: String!
+}
+
+type Mutation {
+    enrollGamer(input: GamerInput!): GamerDTO!
+}
+
+type Query {
+    text: String
+}

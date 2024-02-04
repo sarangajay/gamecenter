@@ -1,0 +1,60 @@
+# APIs to enroll gamers and their interest
+    #Which takes the general details (name, gender, nickname, geography(europe,asia,usa))
+    #Lookup up Any 5 games(fortnite, call of duty, dota, valhalla, amongus,…).
+    #Gamers individual interests with their levels (noob, pro, invincible)
+mutation {
+    enrollGamer(
+        input: {name: "John Doe",
+            gender: "Male",
+            nickname: "JD",
+            geography: "Earth",
+            games: [{name: "Fortnite", level: "NOOB"},
+                {name: "Call of duty", level: "PRO"},
+                {name: "Dota", level: "INVINCIBLE"},
+                {name: "Valhalla", level: "INVINCIBLE"},
+                {name: "Amongus", level: "NOOB"}
+            ]
+        }
+    ) {
+        gamerId
+        name
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
+
+
+mutation {
+    enrollGamer(
+        input: {name: "Saranga",
+            gender: "Male",
+            nickname: "JD",
+            geography: "Earth",
+            games: [{name: "Fortnite", level: "NOOB"},
+                {name: "Call of duty", level: "PRO"},
+                {name: "Dota", level: "INVINCIBLE"},
+                {name: "Valhalla", level: "INVINCIBLE"},
+                {name: "Amongus", level: "NOOB"}
+            ]
+        }
+    ) {
+        gamerId
+        name
+        gender
+        nickname
+        geography
+        games {
+            gameId
+            name
+            level
+            credits
+        }
+    }
+}
