@@ -213,3 +213,16 @@ mutation {
         }
     }
 }
+
+#API to get the gamer with maximum credits for each game based on their levels
+query {
+    findGamersWithMaxCreditsForEachGameBaseOnLevel {
+        gamerId
+        gamerName
+        gameId
+        gameName
+        level
+        credits
+    }
+}
+

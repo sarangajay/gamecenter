@@ -3,6 +3,7 @@ package com.bs.gamecenter.service;
 import com.bs.gamecenter.exception.DataNotFoundException;
 import com.bs.gamecenter.exception.InvalidDataException;
 import com.bs.gamecenter.model.GameInput;
+import com.bs.gamecenter.model.GamerCreditDTO;
 import com.bs.gamecenter.model.GamerDTO;
 import com.bs.gamecenter.model.GamerInput;
 import com.bs.gamecenter.model.entity.Game;
@@ -87,6 +88,10 @@ public class GamerServiceImpl implements GamerService {
         return gameDataMapper.toGamerDTO(gamer, gamerGameList);
     }
 
+    @Override
+    public List<GamerCreditDTO> findGamersWithMaxCreditsForEachGame() {
+        return gamerGameRepository.findGamersWithMaxCreditsForEachGame();
+    }
     private List<Game> findAnyFiveGames(List<GameInput> gameInput) {
         List<String> namesList = gameInput.stream()
                 .map(GameInput::name)

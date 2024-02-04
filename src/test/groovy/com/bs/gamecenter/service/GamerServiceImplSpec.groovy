@@ -226,7 +226,6 @@ class GamerServiceImplSpec extends Specification {
         1L      | 1L     | 100
     }
 
-
     Gamer buildGamer() {
         return new Gamer(gamerId: 1L, name: "John Doe", gender: "Male", nickname: "JD", geography: "Kokkadal")
     }
