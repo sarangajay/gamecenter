@@ -243,6 +243,27 @@ class GamerServiceImplSpec extends Specification {
         assert creditDTOS.size() == 1
     }
 
+    def "gameDataSearch successfully"() {
+        given:
+        List<GamerDataDTO> asList = Arrays.asList(
+                new GamerDataDTO("John Doe", "Male", "JB", "Copenhagen", GameName.AMONGUS.name(), GameLevel.NOOB),
+                new GamerDataDTO("Saranga Jay", "Male", "SJ", "Copenhagen", GameName.DOTA.name(), GameLevel.INVINCIBLE),
+                new GamerDataDTO("Shen Jay", "Male", "SJ", "Copenhagen", GameName.DOTA.name(), GameLevel.INVINCIBLE),
+        )
+        1 * gamerGameRepository.gameDataSearch(_, _, _, _) >> asList
+
+        when:
+        List<GamerCreditDTO> creditDTOS = gamerGameRepository.gameDataSearch(gamerName, gameName, level,  geography)
+
+        then:
+        noExceptionThrown()
+        assert creditDTOS.size() == resultSize
+
+        where:
+        gamerName                | gameName | level | geography || resultSize
+        GameName.DOTA.name()     | null     | null  | null      || 3
+    }
+
     Gamer buildGamer() {
         return new Gamer(gamerId: 1L, name: "John Doe", gender: "Male", nickname: "JD", geography: "Kokkadal")
     }
