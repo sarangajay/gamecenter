@@ -23,6 +23,15 @@ type GamerCreditDTO {
     credits: Int
 }
 
+type GamerDataDTO {
+    gamerName: String!
+    gender: String!
+    nickname: String!
+    geography: String!
+    gameName: String!
+    level: String!
+}
+
 input GamerInput {
     name: String!
     gender: String
@@ -43,4 +52,5 @@ type Mutation {
 
 type Query {
     findGamersWithMaxCreditsForEachGameBaseOnLevel: [GamerCreditDTO]!
+    gameDataSearch(gamerName: String, gameName: String, level: String, geography: String): [GamerDataDTO]
 }

@@ -226,3 +226,26 @@ query {
     }
 }
 
+#Search API based on gamers levels, games and geography for auto-matching
+
+query {
+    gameDataSearch(gameName: "Dota") {
+        gamerName
+        gender
+        nickname
+        geography
+        gameName
+        level
+    }
+}
+
+query {
+    gameDataSearch( gamerName: "John Doe" level: "INVINCIBLE") {
+        gamerName
+        gender
+        nickname
+        geography
+        gameName
+        level
+    }
+}

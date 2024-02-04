@@ -2,10 +2,7 @@ package com.bs.gamecenter.service;
 
 import com.bs.gamecenter.exception.DataNotFoundException;
 import com.bs.gamecenter.exception.InvalidDataException;
-import com.bs.gamecenter.model.GameInput;
-import com.bs.gamecenter.model.GamerCreditDTO;
-import com.bs.gamecenter.model.GamerDTO;
-import com.bs.gamecenter.model.GamerInput;
+import com.bs.gamecenter.model.*;
 import com.bs.gamecenter.model.entity.Game;
 import com.bs.gamecenter.model.entity.Gamer;
 import com.bs.gamecenter.model.entity.GamerGame;
@@ -56,8 +53,9 @@ public class GamerServiceImpl implements GamerService {
 
 
         List<Game> anyFiveGames = findAnyFiveGames(gamerInput.games());
-        anyFiveGames.forEach( game -> {
-                    final GamerGame gamerGame = entityMapper.toGamerGameEntity(gamer, game, nameLevelMap.get(game.getName()), 0);
+        anyFiveGames.forEach(game -> {
+                    final GamerGame gamerGame = entityMapper.toGamerGameEntity(gamer, game,
+                            nameLevelMap.get(game.getName()), 0);
                     final GamerGameId gamerGameId = new GamerGameId(gamer.getGamerId(), game.getGameId());
                     gamerGame.setId(gamerGameId);
                     gamerGameRepository.save(gamerGame);
@@ -92,6 +90,12 @@ public class GamerServiceImpl implements GamerService {
     public List<GamerCreditDTO> findGamersWithMaxCreditsForEachGame() {
         return gamerGameRepository.findGamersWithMaxCreditsForEachGame();
     }
+
+    @Override
+    public List<GamerDataDTO> gameDataSearch(String gamerName, String gameName, String level, String geography) {
+        return gamerGameRepository.gameDataSearch(gamerName, gameName, GameLevel.isValidGameLevel(level), geography);
+    }
+
     private List<Game> findAnyFiveGames(List<GameInput> gameInput) {
         List<String> namesList = gameInput.stream()
                 .map(GameInput::name)
